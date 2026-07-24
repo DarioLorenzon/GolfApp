@@ -1,7 +1,7 @@
 // ======================================
 // Teneriffa Golf
 // excel.js
-// Version 2.3.1
+// Version 1.0.0
 // ======================================
 
 async function loadExcel() {

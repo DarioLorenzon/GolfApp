@@ -1,7 +1,7 @@
 // ======================================
 // Teneriffa Golf
 // table.js
-// Version 2.3.0
+// Version 1.0.0
 // ======================================
 
 function createFlights(rows) {

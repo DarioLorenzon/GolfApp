@@ -1,7 +1,7 @@
 // ======================================
 // Teneriffa Golf
 // filter.js
-// Version 2.3.1
+// Version 1.0.0
 // ======================================
 
 let selectedCourse = "Alle";
