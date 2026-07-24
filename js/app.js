@@ -45,24 +45,8 @@ async function loadData() {
 
     applyFilters();
 
-    // Stand-Anzeige aktualisieren
-    updateLastUpdate();
-
 }
 
-function updateLastUpdate() {
-
-    const element = document.getElementById("lastUpdate");
-
-    if (!element) return;
-
-    const now = new Date();
-
-    element.textContent =
-        "Letzter Import: " +
-        now.toLocaleDateString("de-CH");
-
-    }
 
 function applyFilters() {
 
