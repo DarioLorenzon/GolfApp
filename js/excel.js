@@ -1,7 +1,7 @@
 // ======================================
 // Teneriffa Golf
 // excel.js
-// Version 2.3.0
+// Version 2.3.1
 // ======================================
 
 async function loadExcel() {
@@ -25,58 +25,32 @@ async function loadExcel() {
     });
 
     // ======================================
-    // Letzter Import anzeigen
+    // Erstes Tabellenblatt verwenden
+    // (Blattname = Datum des letzten Imports)
     // ======================================
 
-    let modifiedDate = null;
+    const sheetName = workbook.SheetNames[0];
 
-    // 1. Excel-Metadaten (bevorzugt)
-    if (workbook.Props && workbook.Props.ModifiedDate) {
-        modifiedDate = new Date(workbook.Props.ModifiedDate);
+    // Datum anzeigen
+    const lastUpdate = document.getElementById("lastUpdate");
+
+    if (lastUpdate) {
+        lastUpdate.textContent = "Letzter Import: " + sheetName;
     }
 
-    // 2. Falls keine Excel-Metadaten vorhanden sind:
-    if (!modifiedDate) {
-
-        const lastModified = response.headers.get("Last-Modified");
-
-        if (lastModified) {
-            modifiedDate = new Date(lastModified);
-        }
-    }
-
-    if (modifiedDate) {
-
-        document.getElementById("lastUpdate").textContent =
-            "Letzter Import: " +
-            modifiedDate.toLocaleDateString("de-CH", {
-                day: "2-digit",
-                month: "2-digit",
-                year: "2-digit"
-            });
-
-    } else {
-
-        document.getElementById("lastUpdate").textContent =
-            "Letzter Import: unbekannt";
-
-    }
-
-    // ======================================
     // Tabellenblatt laden
-    // ======================================
-
-    const sheet = workbook.Sheets[CONFIG.SHEET_NAME];
+    const sheet = workbook.Sheets[sheetName];
 
     if (!sheet) {
         throw new Error(
-            `Tabellenblatt "${CONFIG.SHEET_NAME}" nicht gefunden.`
+            `Tabellenblatt "${sheetName}" nicht gefunden.`
         );
     }
 
     const rows = XLSX.utils.sheet_to_json(sheet);
 
     console.log("Excel geladen");
+    console.log("Stand:", sheetName);
     console.table(rows);
 
     return rows;
